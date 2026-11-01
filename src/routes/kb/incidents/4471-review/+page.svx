@@ -1,0 +1,48 @@
+---
+layout: runbook
+title: '#4471 review · separate date faults and a continuing queue'
+owner: jczapiewski
+status: proposed
+reviewed: '2026-11-01'
+signature: 'jczapiewski / Codex / S01E03'
+---
+
+<script>
+import IncidentReview from '#lib/kb/IncidentReview.svelte';
+import CauseTable from '#lib/kb/CauseTable.svelte';
+import QueueTimeline from '#lib/kb/QueueTimeline.svelte';
+import DedupeExplorer from '#lib/kb/DedupeExplorer.svelte';
+import RenderStamp from '#lib/kb/RenderStamp.svelte';
+</script>
+
+The export is a snapshot from 4 October 2026, not the live support queue. The old incident page says one issue and one fix; its computed views contradict that summary. Keep the shared parser fault and the booking-v3 hint fault in separate tickets.
+
+## What the data shows
+
+<IncidentReview />
+
+<CauseTable ticket={4471} />
+
+## Separate fixes
+
+- **Shared parser:** day-first tenants have app, email, and booking-v2 dates read month first. For example R-41200 intended 7 April but received 4 July. Parse using an explicit agreed date format or structured date input; test day-first tenants across all channels. The code's parser count includes the residual reports below.
+- **booking-v3 hint:** for day-first tenants, the form prints MM/DD/YYYY while interpreting input in the tenant's order. Copper Studio, Alder Physio and Pale Harbour use this form. Align the hint and form interpretation; test the same tenant through form and app because they can have different causes. Intake browser locale and intakeTag are not reliable classifiers.
+- **Unresolved one-day/timing symptoms:** investigate the desk-note report IDs separately, preserving their current classification and avoiding double counting. Compare original timestamps, local dates, timezone offsets, date-only conversions and reminder scheduling. Do not assert a timezone root cause from these reports alone. Recheck whether R-41236's early invite belongs with a date shift or is another timing fault.
+
+## Reports continue while the desk merges
+
+<QueueTimeline ticket={4471} />
+
+The received series and the merged series answer different questions. Backlog processing can create a merge spike. The export has no proof that the queued fix has shipped. Recheck the live desk before closing these tickets.
+
+## Replace subject-only deduplication
+
+The accepted 2024 decision and its triage page are stale under the kb's 180-day rule. Matching subject lines is not evidence of a shared cause. Keep the accepted decision unchanged; propose decision 0002 to supersede it after desk approval.
+
+<DedupeExplorer />
+
+Read the body, identify tenant locale and booking form, and compare channel and reproduction before merging. Same tenant and different channels can mean different faults; different subjects can describe the same fault. Unknown tenants require investigation rather than automatic merging. Keep report IDs and counts traceable, and review continuing arrivals after any fix.
+
+See [proposed decision 0002](/kb/decisions/0002-dedupe-by-cause).
+
+<RenderStamp {signature} />

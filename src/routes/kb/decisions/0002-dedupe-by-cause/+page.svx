@@ -1,0 +1,26 @@
+---
+layout: runbook
+title: '0002 · Deduplicate by verified cause'
+owner: jczapiewski
+status: proposed
+reviewed: '2026-11-01'
+signature: 'jczapiewski / Codex / S01E03'
+---
+
+<script>
+import RenderStamp from '#lib/kb/RenderStamp.svelte';
+</script>
+
+## Context
+
+Decision 0001 merged on normalized subjects. In #4471 this concealed a form-hint fault inside a parser ticket. Its page has not been reviewed since June 2024. This proposal leaves that accepted historical record intact.
+
+## Proposed decision
+
+Supersede 0001 when the desk approves this record. Merge only after evidence supports the same cause: read the report body, resolve tenant locale and form version, compare channel and reproduction, and preserve unique report IDs. Unknown or conflicting evidence stays unplaced for review. Subject matches and intake tags are search aids, not merge criteria.
+
+## Consequences
+
+Triage takes more reading. Engineering gets separate fixes with traceable counts. Monitor incoming reports and receipt times after each fix; do not infer resolution from a merge batch or a known label. Revisit the five one-day/timing reports without claiming a confirmed root cause.
+
+<RenderStamp {signature} />

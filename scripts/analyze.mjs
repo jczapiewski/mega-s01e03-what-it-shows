@@ -1,0 +1,12 @@
+import fs from 'node:fs';
+import { uniqueById, groupByCause } from '../src/lib/kb/causes.ts';
+const root=new URL('../src/lib/data/',import.meta.url);
+const reports=JSON.parse(fs.readFileSync(new URL('reports-4471.json',root)));
+const tenants=Object.fromEntries(fs.readdirSync(new URL('tenants/',root)).map(f=>{const t=JSON.parse(fs.readFileSync(new URL('tenants/'+f,root)));return [t.handle,t]}));
+const unique=uniqueById(reports).filter(r=>r.mergedInto===4471);
+const groups=groupByCause(unique,r=>tenants[r.tenant]);
+const notes=JSON.parse(fs.readFileSync(new URL('desk-notes.json',root)));
+const result={snapshot:'2026-10-04',rawRows:reports.length,uniqueReports:unique.length,groups:groups.map(g=>({...g,reports:g.reports.map(r=>r.id)})),residualSubsetOfParser:notes.oneDayMove};
+if(unique.length!==412||groups.find(g=>g.cause==='parser').reports.length!==379||groups.find(g=>g.cause==='hint').reports.length!==33) throw Error('Counts changed: review before publication');
+fs.writeFileSync(new URL('../report-groups.json',import.meta.url),JSON.stringify(result,null,2)+'\n');
+console.log('Verified: 427 rows → 412 unique; parser 379; hint 33; residual 5 included in parser.');
