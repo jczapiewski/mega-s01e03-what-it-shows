@@ -1,7 +1,9 @@
 # S01E03 review
 
-Prepared for jczapiewski with Codex. Proposed public repository: jczapiewski/mega-s01e03-what-it-shows.
+Public repository: https://github.com/jczapiewski/mega-s01e03-what-it-shows
 
-Deliverables: two confirmed date faults (379 parser, 33 hint under the supplied classifier) and one investigation issue covering the five residual reports already included in the parser count. Added a signed review page and a proposed decision that preserves accepted decision 0001. No external changes have been made.
+Two accepted tickets: parser (379 reports) and hint (33 reports). The five unusual reports are included in the parser count. The overlapping investigation issue was closed after course review; it is not a third confirmed cause.
 
-Build with npm ci then npm run build. Rendered HTML lives in rendered/kb/. The renderer compiles the actual SVX and Svelte components; computed counts and desk reference must appear in the output. The export remains a 2026-10-04 snapshot. Do not claim that the live desk has stopped receiving reports.
+Engineering update: #4471 closed 2026-10-05. Parser fixed (`fix(dates): parse dd/mm for eu locales`); hint not fixed because booking-v3 was retired. These outcomes are recorded separately in the signed review page.
+
+Run npm ci, npm run analyze, and npm run build. Rendered HTML is in rendered/kb/. The renderer compiles the actual SVX and Svelte components. Signature: jczapiewski / Codex / S01E03; computed desk ref: DR-RA59-4APY. Source data is the 2026-10-04 snapshot.
