@@ -6,4 +6,4 @@ Two accepted tickets: parser (379 reports) and hint (33 reports). The five unusu
 
 Engineering update: #4471 closed 2026-10-05. Parser fixed (`fix(dates): parse dd/mm for eu locales`); hint not fixed because booking-v3 was retired. These outcomes are recorded separately in the signed review page.
 
-Run npm ci, npm run analyze, and npm run build. Rendered HTML is in rendered/kb/. The renderer compiles the actual SVX and Svelte components. Signature: jczapiewski / Codex / S01E03; computed desk ref: DR-RA59-4APY. Source data is the 2026-10-04 snapshot.
+Run npm ci, npm run analyze, and npm run build. Rendered HTML is in rendered/kb/. The renderer compiles the actual SVX and Svelte components. Signature: course-issued ticket in page frontmatter; desk reference computed by RenderStamp. Source data is the 2026-10-04 snapshot.
